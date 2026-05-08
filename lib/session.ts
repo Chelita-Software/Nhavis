@@ -1,6 +1,6 @@
 import type { Role } from "./types";
 
-const SECRET = process.env.AUTH_SECRET ?? "dev-fallback-secret-change-me";
+const SECRET = "demo-nhavis-not-for-production-change-me-32chars";
 const COOKIE_NAME = "nhavis_session";
 const TTL_DAYS = 7;
 
