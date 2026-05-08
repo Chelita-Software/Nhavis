@@ -1,0 +1,98 @@
+[
+  {
+    "id": "m-seed-1",
+    "itemId": "i-llanta",
+    "type": "ingreso",
+    "quantity": 10,
+    "unitCostSnapshot": 4000,
+    "purchaseOrderId": "po-0001",
+    "workOrderPartId": null,
+    "authorizedBy": "u-admin",
+    "notes": "Compra inicial",
+    "createdAt": "2026-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "m-seed-2",
+    "itemId": "i-llanta",
+    "type": "ingreso",
+    "quantity": 8,
+    "unitCostSnapshot": 4200,
+    "purchaseOrderId": "po-0002",
+    "workOrderPartId": null,
+    "authorizedBy": "u-admin",
+    "notes": "Reabastecimiento",
+    "createdAt": "2026-04-12T11:00:00.000Z"
+  },
+  {
+    "id": "m-seed-3",
+    "itemId": "i-llanta",
+    "type": "egreso",
+    "quantity": 12,
+    "unitCostSnapshot": 4100,
+    "purchaseOrderId": null,
+    "workOrderPartId": null,
+    "authorizedBy": "u-admin",
+    "notes": "Salidas a OTs cerradas (semilla acumulada)",
+    "createdAt": "2026-04-25T15:00:00.000Z"
+  },
+  {
+    "id": "m-seed-4",
+    "itemId": "i-balatas-tras",
+    "type": "egreso",
+    "quantity": 1,
+    "unitCostSnapshot": 2400,
+    "purchaseOrderId": null,
+    "workOrderPartId": null,
+    "authorizedBy": "u-admin",
+    "notes": "Salida histórica",
+    "createdAt": "2026-04-20T10:00:00.000Z"
+  },
+  {
+    "id": "m-seed-5",
+    "itemId": "i-faro-led",
+    "type": "egreso",
+    "quantity": 1,
+    "unitCostSnapshot": 320,
+    "purchaseOrderId": null,
+    "workOrderPartId": null,
+    "authorizedBy": "u-admin",
+    "notes": "Daño en almacén — descartado",
+    "createdAt": "2026-04-30T09:00:00.000Z"
+  },
+  {
+    "id": "m-seed-6",
+    "itemId": "i-aceite",
+    "type": "ingreso",
+    "quantity": 2,
+    "unitCostSnapshot": 180,
+    "purchaseOrderId": null,
+    "workOrderPartId": null,
+    "authorizedBy": "u-admin",
+    "notes": "Ajuste de inventario — encontrados en revisión",
+    "createdAt": "2026-05-02T08:30:00.000Z"
+  },
+  {
+    "id": "371a5380-a745-40ab-bd26-a301bbe072e2",
+    "itemId": "i-gasket",
+    "type": "egreso",
+    "quantity": 2,
+    "unitCostSnapshot": 95,
+    "purchaseOrderId": null,
+    "workOrderPartId": "wop-0147-gasket",
+    "authorizedBy": "u-admin",
+    "notes": "Salida por refacción Gasket de puerta",
+    "createdAt": "2026-05-08T17:22:28.830Z"
+  },
+  {
+    "id": "dc22edd8-f12b-4427-b89b-9063f316e1a1",
+    "itemId": "i-faro-led",
+    "type": "ingreso",
+    "quantity": 4,
+    "unitCostSnapshot": 340,
+    "purchaseOrderId": "po-0003",
+    "workOrderPartId": null,
+    "authorizedBy": "u-admin",
+    "notes": "Recepción OC OC-2026-0003",
+    "createdAt": "2026-05-08T17:23:29.196Z"
+  }
+]

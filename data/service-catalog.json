@@ -1,0 +1,51 @@
+[
+  {
+    "id": "sc-llantas",
+    "name": "Cambio de llantas",
+    "category": "reparacion",
+    "defaultParts": [
+      { "description": "Llanta 295/75R22.5", "qty": 4, "partCategory": "llantas" }
+    ],
+    "active": true
+  },
+  {
+    "id": "sc-frenos",
+    "name": "Servicio de frenos",
+    "category": "reparacion",
+    "defaultParts": [
+      { "description": "Kit balatas traseras", "qty": 1, "partCategory": "frenos" }
+    ],
+    "active": true
+  },
+  {
+    "id": "sc-aceite",
+    "name": "Cambio de aceite",
+    "category": "rutina",
+    "defaultParts": [
+      { "description": "Aceite 15W40", "qty": 12, "partCategory": "aceites" },
+      { "description": "Filtro de aceite", "qty": 1, "partCategory": "filtros" }
+    ],
+    "active": true
+  },
+  {
+    "id": "sc-fumigacion",
+    "name": "Fumigación de caja",
+    "category": "fumigacion",
+    "defaultParts": [],
+    "active": true
+  },
+  {
+    "id": "sc-engrase",
+    "name": "Engrase general",
+    "category": "rutina",
+    "defaultParts": [],
+    "active": true
+  },
+  {
+    "id": "sc-limpieza",
+    "name": "Limpieza interior",
+    "category": "limpieza",
+    "defaultParts": [],
+    "active": true
+  }
+]

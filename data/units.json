@@ -1,0 +1,52 @@
+[
+  {
+    "id": "tr-014",
+    "unitNumber": "TRK-014",
+    "brand": "Peterbilt",
+    "model": "389",
+    "year": 2021,
+    "plates": "LMN-456-B",
+    "status": "active",
+    "notes": ""
+  },
+  {
+    "id": "tr-007",
+    "unitNumber": "TRK-007",
+    "brand": "Kenworth",
+    "model": "T680",
+    "year": 2020,
+    "plates": "ABC-123-A",
+    "status": "active",
+    "notes": ""
+  },
+  {
+    "id": "tr-031",
+    "unitNumber": "TRK-031",
+    "brand": "Freightliner",
+    "model": "Cascadia",
+    "year": 2022,
+    "plates": "XYZ-789-C",
+    "status": "in_workshop",
+    "notes": ""
+  },
+  {
+    "id": "tr-008",
+    "unitNumber": "TRK-008",
+    "brand": "Volvo",
+    "model": "VNL",
+    "year": 2019,
+    "plates": "DEF-321-D",
+    "status": "active",
+    "notes": ""
+  },
+  {
+    "id": "tr-022",
+    "unitNumber": "TRK-022",
+    "brand": "International",
+    "model": "LT",
+    "year": 2023,
+    "plates": "GHI-654-E",
+    "status": "active",
+    "notes": ""
+  }
+]

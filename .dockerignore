@@ -1,0 +1,28 @@
+# Version control
+.git
+.gitignore
+
+# Dependencies (installed fresh inside builder stage)
+node_modules
+
+# Local Next.js build artifacts
+.next
+
+# Environment files – secrets must be injected at runtime, never baked in
+.env
+.env.local
+.env*.local
+
+# Development / editor artefacts
+.DS_Store
+*.log
+*.md
+.vscode
+.idea
+
+# Test / CI
+coverage
+.nyc_output
+
+# Workspace file
+*.code-workspace

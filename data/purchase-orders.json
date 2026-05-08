@@ -1,0 +1,59 @@
+[
+  {
+    "id": "po-0001",
+    "folio": "OC-2026-0001",
+    "supplier": "Llantas del Norte",
+    "status": "received",
+    "items": [
+      {
+        "itemId": "i-llanta",
+        "qty": 10,
+        "unitCost": 4000
+      }
+    ],
+    "linkedWorkOrderPartId": null,
+    "createdBy": "u-admin",
+    "createdAt": "2026-02-10T09:00:00.000Z",
+    "orderedAt": "2026-02-11T09:00:00.000Z",
+    "receivedAt": "2026-02-15T10:00:00.000Z",
+    "notes": "Compra inicial de stock"
+  },
+  {
+    "id": "po-0002",
+    "folio": "OC-2026-0002",
+    "supplier": "Llantas del Norte",
+    "status": "received",
+    "items": [
+      {
+        "itemId": "i-llanta",
+        "qty": 8,
+        "unitCost": 4200
+      }
+    ],
+    "linkedWorkOrderPartId": null,
+    "createdBy": "u-admin",
+    "createdAt": "2026-04-08T09:00:00.000Z",
+    "orderedAt": "2026-04-09T09:00:00.000Z",
+    "receivedAt": "2026-04-12T11:00:00.000Z",
+    "notes": "Reabastecimiento. Subió el precio."
+  },
+  {
+    "id": "po-0003",
+    "folio": "OC-2026-0003",
+    "supplier": "Iluminación Pro",
+    "status": "received",
+    "items": [
+      {
+        "itemId": "i-faro-led",
+        "qty": 4,
+        "unitCost": 340
+      }
+    ],
+    "linkedWorkOrderPartId": "wop-0145-faros",
+    "createdBy": "u-admin",
+    "createdAt": "2026-05-05T11:00:00.000Z",
+    "orderedAt": "2026-05-05T15:00:00.000Z",
+    "receivedAt": "2026-05-08T17:23:29.196Z",
+    "notes": "Generada desde refacción de OT-2026-0145"
+  }
+]

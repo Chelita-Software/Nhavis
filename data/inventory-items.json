@@ -1,0 +1,82 @@
+[
+  {
+    "id": "i-llanta",
+    "sku": "SKU-00412",
+    "description": "Llanta 295/75R22.5",
+    "unitOfMeasure": "pieza",
+    "unitCost": 4200,
+    "stockCurrent": 6,
+    "stockMinimum": 4,
+    "active": true
+  },
+  {
+    "id": "i-balatas-del",
+    "sku": "SKU-00398",
+    "description": "Kit balatas delanteras",
+    "unitOfMeasure": "kit",
+    "unitCost": 1800,
+    "stockCurrent": 2,
+    "stockMinimum": 2,
+    "active": true
+  },
+  {
+    "id": "i-balatas-tras",
+    "sku": "SKU-00412B",
+    "description": "Kit balatas traseras",
+    "unitOfMeasure": "kit",
+    "unitCost": 2400,
+    "stockCurrent": 0,
+    "stockMinimum": 2,
+    "active": true
+  },
+  {
+    "id": "i-aceite",
+    "sku": "SKU-00501",
+    "description": "Aceite motor 15W40",
+    "unitOfMeasure": "litro",
+    "unitCost": 180,
+    "stockCurrent": 38,
+    "stockMinimum": 24,
+    "active": true
+  },
+  {
+    "id": "i-filtro-aire",
+    "sku": "SKU-00610",
+    "description": "Filtro de aire",
+    "unitOfMeasure": "pieza",
+    "unitCost": 380,
+    "stockCurrent": 5,
+    "stockMinimum": 3,
+    "active": true
+  },
+  {
+    "id": "i-filtro-aceite",
+    "sku": "SKU-00611",
+    "description": "Filtro de aceite",
+    "unitOfMeasure": "pieza",
+    "unitCost": 240,
+    "stockCurrent": 8,
+    "stockMinimum": 4,
+    "active": true
+  },
+  {
+    "id": "i-faro-led",
+    "sku": "SKU-00331",
+    "description": "Faro LED 4 pulgadas",
+    "unitOfMeasure": "pieza",
+    "unitCost": 340,
+    "stockCurrent": 5,
+    "stockMinimum": 4,
+    "active": true
+  },
+  {
+    "id": "i-gasket",
+    "sku": "SKU-00712",
+    "description": "Gasket de puerta",
+    "unitOfMeasure": "pieza",
+    "unitCost": 95,
+    "stockCurrent": 5,
+    "stockMinimum": 4,
+    "active": true
+  }
+]

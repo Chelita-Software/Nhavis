@@ -1,0 +1,38 @@
+[
+  {
+    "id": "u-admin",
+    "name": "Fernando García",
+    "email": "fgarcia@nhavis.demo",
+    "role": "admin",
+    "dailyRate": 1200,
+    "active": true,
+    "createdAt": "2026-01-10T09:00:00.000Z"
+  },
+  {
+    "id": "u-supervisor",
+    "name": "Daniel Alva",
+    "email": "dalva@nhavis.demo",
+    "role": "supervisor",
+    "dailyRate": 800,
+    "active": true,
+    "createdAt": "2026-01-10T09:00:00.000Z"
+  },
+  {
+    "id": "u-mec-luis",
+    "name": "Luis Martínez",
+    "email": "lmartinez@nhavis.demo",
+    "role": "mecanico",
+    "dailyRate": 550,
+    "active": true,
+    "createdAt": "2026-01-10T09:00:00.000Z"
+  },
+  {
+    "id": "u-mec-pedro",
+    "name": "Pedro Sánchez",
+    "email": "psanchez@nhavis.demo",
+    "role": "mecanico",
+    "dailyRate": 550,
+    "active": true,
+    "createdAt": "2026-01-10T09:00:00.000Z"
+  }
+]

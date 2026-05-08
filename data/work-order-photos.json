@@ -1,0 +1,32 @@
+[
+  {
+    "id": "wph-0147-1",
+    "workOrderId": "wo-0147",
+    "workOrderServiceId": null,
+    "stage": "initial",
+    "uploadedBy": "u-supervisor",
+    "photoUrl": "/uploads/seed-truck-1.svg",
+    "caption": "Llegada al taller — vista frontal",
+    "createdAt": "2026-05-06T09:35:00.000Z"
+  },
+  {
+    "id": "wph-0142-1",
+    "workOrderId": "wo-0142",
+    "workOrderServiceId": null,
+    "stage": "initial",
+    "uploadedBy": "u-mec-pedro",
+    "photoUrl": "/uploads/seed-truck-2.svg",
+    "caption": "Llegada — costado",
+    "createdAt": "2026-05-01T09:15:00.000Z"
+  },
+  {
+    "id": "wph-0142-2",
+    "workOrderId": "wo-0142",
+    "workOrderServiceId": "wos-0142-aceite",
+    "stage": "service_done",
+    "uploadedBy": "u-mec-pedro",
+    "photoUrl": "/uploads/seed-truck-3.svg",
+    "caption": "Aceite cambiado",
+    "createdAt": "2026-05-01T12:30:00.000Z"
+  }
+]
