@@ -13,6 +13,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Ensure public/ and uploads/ exist even when the repo has them gitignored
+RUN mkdir -p /app/public/uploads
+
 # Build the Next.js app with standalone output
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
@@ -34,6 +37,7 @@ RUN addgroup --system --gid 1001 nodejs \
 # Copy the minimal standalone server produced by Next.js
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# public/ is guaranteed to exist because we ran mkdir -p in the builder stage
 COPY --from=builder /app/public ./public
 
 # Copy the JSON data files used as the file-based database

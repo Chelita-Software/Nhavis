@@ -1,0 +1,39 @@
+services:
+  nhavis:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nhavis:local
+    container_name: nhavis
+    restart: unless-stopped
+    ports:
+      # Host port 3001 avoids conflict with `next dev` which uses 3000.
+      # Change the left side (host) to any free port; the container always listens on 3000.
+      - "${HOST_PORT:-3001}:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOSTNAME: "0.0.0.0"
+      # AUTH_SECRET is loaded from .env.local (see below) – never hard-code it here
+    env_file:
+      # Create a file called .env.docker with your secrets:
+      #   AUTH_SECRET=your-secret-here
+      # .env.local is intentionally excluded from Docker builds; use .env.docker locally.
+      - path: .env.docker
+        required: false   # compose won't fail if the file is absent; fall back to .env.local
+      - path: .env.local
+        required: false
+    volumes:
+      # Persist uploaded photos across container restarts during development.
+      # Remove this volume in production and use Cloud Storage instead.
+      - uploads:/app/public/uploads
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/ | grep -q '<html' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+volumes:
+  uploads:
+    driver: local
