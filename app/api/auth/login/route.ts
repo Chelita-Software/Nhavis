@@ -32,7 +32,7 @@ export async function POST(req: Request) {
   res.cookies.set(SESSION_COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",
-    secure: true,
+    secure: process.env.SECURE_COOKIES !== "false",
     path: "/",
     maxAge: 60 * 60 * 24 * 7,
   });

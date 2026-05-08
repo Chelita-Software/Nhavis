@@ -83,6 +83,7 @@ export function Sidebar({ user }: SidebarProps) {
           </div>
           <Link
             href="/logout"
+            prefetch={false}
             className="p-1.5 rounded hover:bg-bg-secondary text-text-tertiary hover:text-text-primary"
             title="Cerrar sesión"
           >

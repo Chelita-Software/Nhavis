@@ -40,6 +40,7 @@ export function MobileHeader({
       {showLogout && (
         <Link
           href="/logout"
+          prefetch={false}
           aria-label="Cerrar sesión"
           className="p-1 rounded hover:bg-white/10"
         >

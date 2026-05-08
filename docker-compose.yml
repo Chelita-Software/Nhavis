@@ -7,13 +7,16 @@ services:
     container_name: nhavis
     restart: unless-stopped
     ports:
-      # Host port 3001 avoids conflict with `next dev` which uses 3000.
+      # Host port 3000 avoids conflict with `next dev` which uses 3000.
       # Change the left side (host) to any free port; the container always listens on 3000.
-      - "${HOST_PORT:-3001}:3000"
+      - "${HOST_PORT:-3000}:3000"
     environment:
       NODE_ENV: production
       PORT: 3000
       HOSTNAME: "0.0.0.0"
+      # Set to "false" when running over plain HTTP (no TLS termination).
+      # Remove this line (or set to "true") when behind an HTTPS reverse proxy.
+      SECURE_COOKIES: "false"
     volumes:
       # Persist uploaded photos across container restarts during development.
       # Remove this volume in production and use Cloud Storage instead.
