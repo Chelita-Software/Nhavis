@@ -104,4 +104,25 @@
     "closedAt": null,
     "generalNotes": ""
   }
+  ,{
+    "id": "wo-0150",
+    "folio": "OT-2026-0150",
+    "unitId": "tr-022",
+    "assigneeId": "u-mec-luis",
+    "assigneeRole": "mecanico",
+    "createdBy": "u-admin",
+    "status": "in_progress",
+    "priority": "alta",
+    "reason": "Revisión de sistema de frenos y luces cabina",
+    "scheduledFor": "2026-05-08T09:00:00.000Z",
+    "arrivedAt": "2026-05-08T09:10:00.000Z",
+    "openedAt": "2026-05-08T08:00:00.000Z",
+    "submittedAt": null,
+    "supervisorSignedAt": null,
+    "supervisorSignedBy": null,
+    "adminSignedAt": null,
+    "adminSignedBy": null,
+    "closedAt": null,
+    "generalNotes": ""
+  }
 ]

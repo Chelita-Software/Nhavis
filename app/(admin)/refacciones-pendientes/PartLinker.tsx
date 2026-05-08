@@ -12,7 +12,17 @@ import {
   linkAndAuthorizeAction,
   rejectPartAction,
 } from "./actions";
-import type { InventoryItem, WorkOrderPart } from "@/lib/types";
+import type { InventoryItem, PartCategory, WorkOrderPart } from "@/lib/types";
+
+const CATEGORY_KEYWORDS: Record<PartCategory, string[]> = {
+  llantas: ["llanta", "neumatico", "neumático", "tire"],
+  frenos: ["freno", "balata", "pastilla", "disco", "zapata"],
+  aceites: ["aceite", "lubricante", "oil"],
+  filtros: ["filtro", "filter"],
+  luces: ["luz", "luces", "foco", "bombilla", "led", "lampara", "lámpara"],
+  suspension: ["suspension", "suspensión", "amortiguador", "resorte", "barra"],
+  otros: [],
+};
 
 interface Props {
   part: WorkOrderPart;
@@ -22,22 +32,32 @@ interface Props {
 }
 
 export function PartLinker({ part, meta, items, showCosts }: Props) {
+  const keywords = CATEGORY_KEYWORDS[part.partCategory] ?? [];
+
+  const filteredItems = useMemo(() => {
+    const active = items.filter((i) => i.active);
+    if (keywords.length === 0) return active;
+    const kw = [part.partCategory.toLowerCase(), ...keywords];
+    const matched = active.filter((i) =>
+      kw.some((k) => i.description.toLowerCase().includes(k)),
+    );
+    return matched.length > 0 ? matched : active;
+  }, [items, keywords, part.partCategory]);
+
   const suggestion = useMemo(() => {
     const text = part.description.toLowerCase();
     return (
-      items.find(
-        (i) => i.active && i.description.toLowerCase().includes(text),
-      ) ??
-      items.find(
-        (i) =>
-          i.active &&
-          i.description.toLowerCase().includes(part.partCategory),
-      ) ??
+      filteredItems.find((i) => i.description.toLowerCase().includes(text)) ??
+      filteredItems[0] ??
       null
     );
-  }, [items, part.description, part.partCategory]);
+  }, [filteredItems, part.description]);
 
+  const [showAll, setShowAll] = useState(false);
   const [itemId, setItemId] = useState<string>(suggestion?.id ?? items[0]?.id ?? "");
+
+  const visibleItems = showAll ? items.filter((i) => i.active) : filteredItems;
+  const isFiltered = !showAll && filteredItems.length < items.filter((i) => i.active).length;
   const [supplier, setSupplier] = useState("");
   const [poUnitCost, setPoUnitCost] = useState<string>("");
   const [rejectReason, setRejectReason] = useState("");
@@ -86,8 +106,8 @@ export function PartLinker({ part, meta, items, showCosts }: Props) {
     <Card className="mb-3">
       <div className="flex justify-between items-start gap-2 mb-2">
         <div>
-          <div className="text-xs font-medium">{part.description}</div>
-          <div className="text-[11px] text-text-secondary">
+          <div className="text-sm font-semibold">{part.description}</div>
+          <div className="text-xs text-text-secondary mt-0.5">
             Cantidad: <strong>{part.quantity}</strong> ·{" "}
             {meta.folio} · {meta.service} · pidió: {meta.mechanic}
           </div>
@@ -103,20 +123,38 @@ export function PartLinker({ part, meta, items, showCosts }: Props) {
         </div>
       )}
 
-      <Label>Vincular con ítem del catálogo</Label>
+      <div className="flex justify-between items-center mb-0.5">
+        <Label className="mb-0">Vincular con ítem del catálogo</Label>
+        {isFiltered && (
+          <button
+            type="button"
+            className="text-[11px] text-text-link underline underline-offset-2"
+            onClick={() => setShowAll(true)}
+          >
+            Ver todos ({items.filter((i) => i.active).length})
+          </button>
+        )}
+        {showAll && (
+          <button
+            type="button"
+            className="text-[11px] text-text-link underline underline-offset-2"
+            onClick={() => setShowAll(false)}
+          >
+            Filtrar por categoría ({filteredItems.length})
+          </button>
+        )}
+      </div>
       <div className="flex gap-2 items-end mb-2">
         <Select
           value={itemId}
           onChange={(e) => setItemId(e.currentTarget.value)}
           className="flex-1"
         >
-          {items
-            .filter((i) => i.active)
-            .map((i) => (
-              <option key={i.id} value={i.id}>
-                {i.description} — {i.sku}
-              </option>
-            ))}
+          {visibleItems.map((i) => (
+            <option key={i.id} value={i.id}>
+              {i.description} — {i.sku}
+            </option>
+          ))}
         </Select>
       </div>
 

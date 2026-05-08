@@ -61,7 +61,7 @@
     "status": "working",
     "startTime": "2026-05-04T10:00:00.000Z",
     "endTime": null,
-    "notes": "Esperando OC de faros",
+    "notes": "",
     "createdAt": "2026-05-02T14:00:00.000Z"
   },
   {
@@ -115,5 +115,31 @@
     "endTime": null,
     "notes": "",
     "createdAt": "2026-05-08T17:25:43.959Z"
+  }
+  ,{
+    "id": "wos-0150-frenos",
+    "workOrderId": "wo-0150",
+    "serviceCatalogId": "sc-frenos",
+    "name": "Servicio de frenos",
+    "category": "reparacion",
+    "description": "Revisión y reemplazo de balatas",
+    "status": "waiting_parts",
+    "startTime": "2026-05-08T09:30:00.000Z",
+    "endTime": null,
+    "notes": "",
+    "createdAt": "2026-05-08T08:00:00.000Z"
+  },
+  {
+    "id": "wos-0150-luces",
+    "workOrderId": "wo-0150",
+    "serviceCatalogId": null,
+    "name": "Revisión de luces de cabina",
+    "category": "reparacion",
+    "description": "Reemplazo de faros dañados",
+    "status": "waiting_parts",
+    "startTime": "2026-05-08T09:30:00.000Z",
+    "endTime": null,
+    "notes": "",
+    "createdAt": "2026-05-08T08:00:00.000Z"
   }
 ]

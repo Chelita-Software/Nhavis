@@ -10,10 +10,10 @@ interface Props {
   disabled?: boolean;
 }
 
-const options: { value: ServiceStatus; label: string; color: string }[] = [
-  { value: "pending", label: "Pendiente", color: "#F3F4F6" },
-  { value: "working", label: "Trabajando", color: "#DBEAFE" },
-  { value: "waiting_parts", label: "Espera refacciones", color: "#FEF9C3" },
+const options: { value: ServiceStatus; label: string }[] = [
+  { value: "pending", label: "Pendiente" },
+  { value: "working", label: "Trabajando" },
+  { value: "waiting_parts", label: "Espera refacciones" },
 ];
 
 export function ServiceStatusSwitcher({ serviceId, current, disabled }: Props) {

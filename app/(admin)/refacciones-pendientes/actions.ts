@@ -18,9 +18,10 @@ async function recomputeServiceStatus(serviceId: string) {
   const parts = (await readAll("workOrderParts")).filter(
     (p) => p.workOrderServiceId === serviceId,
   );
-  const next: WorkOrderService["status"] = parts.some(
-    (p) => p.status === "waiting_purchase",
-  )
+  const hasUnresolved = parts.some(
+    (p) => p.status === "requested" || p.status === "waiting_purchase",
+  );
+  const next: WorkOrderService["status"] = hasUnresolved
     ? "waiting_parts"
     : service.status === "waiting_parts"
       ? "working"

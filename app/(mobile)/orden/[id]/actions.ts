@@ -107,7 +107,9 @@ export async function addPartAction(input: AddPartInput) {
   };
   await insert("workOrderParts", part);
   const svc = await findById("workOrderServices", input.workOrderServiceId);
-  if (svc) {
+  if (svc && svc.status !== "done") {
+    await patchById("workOrderServices", svc.id, { status: "waiting_parts" });
+    revalidatePath(`/orden/${svc.workOrderId}/flujo/servicio/${svc.id}`);
     revalidatePath(`/orden/${svc.workOrderId}/flujo/servicio/${svc.id}/refacciones`);
     revalidatePath(`/orden/${svc.workOrderId}`);
   }

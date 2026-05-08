@@ -38,7 +38,8 @@ COPY --from=builder /app/public ./public
 
 # Copy the JSON data files used as the file-based database
 # NOTE: These are baked into the image. For production use a real database.
-COPY --from=builder --chown=nextjs:nodejs /app/data ./data
+COPY --from=builder /app/data ./data
+RUN chown -R nextjs:nodejs /app/data
 
 # Ensure the uploads directory exists (writable by the app user)
 # WARNING: uploads are NOT persisted across container restarts on Cloud Run.

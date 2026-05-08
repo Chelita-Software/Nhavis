@@ -250,9 +250,17 @@ export async function setServiceStatusAction(
   serviceId: string,
   status: WorkOrderService["status"],
 ) {
-  await requireRole(["admin", "supervisor", "mecanico"]);
+  const user = await requireRole(["admin", "supervisor", "mecanico"]);
   const svc = await findById("workOrderServices", serviceId);
   if (!svc) throw new Error("Servicio no encontrado.");
+  if (user.role === "mecanico") {
+    const parts = (await readAll("workOrderParts")).filter(
+      (p) => p.workOrderServiceId === serviceId,
+    );
+    if (parts.some((p) => p.status === "requested" || p.status === "waiting_purchase")) {
+      throw new Error("El servicio tiene refacciones pendientes. El estado se actualizará automáticamente cuando sean resueltas.");
+    }
+  }
   const patch: Partial<WorkOrderService> = { status };
   if (status === "working" && !svc.startTime) patch.startTime = nowIso();
   if (status === "done" && !svc.endTime) patch.endTime = nowIso();

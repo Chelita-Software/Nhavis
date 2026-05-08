@@ -92,11 +92,7 @@ export default async function OrderDetailPage({
 
       {pendingPartsCount > 0 && (
         <Banner tone="danger">
-          <strong>{pendingPartsCount}</strong> refacciones esperando
-          vinculación.{" "}
-          <Link href={`/ordenes/${order.id}/refacciones`} className="underline">
-            Ir a vincular
-          </Link>
+          <strong>{pendingPartsCount}</strong> refacciones esperando vinculación.
         </Banner>
       )}
 
@@ -159,6 +155,22 @@ export default async function OrderDetailPage({
             showCosts={showCosts}
           />
         ))
+      )}
+
+      {pendingPartsCount > 0 && (
+        <Link href={`/ordenes/${order.id}/refacciones`} className="block mt-3">
+          <button className="w-full flex items-center justify-between gap-3 bg-[#FEF2F2] hover:bg-[#FEE2E2] border border-[#FECACA] rounded-lg px-4 py-3 transition-colors">
+            <div className="text-left">
+              <div className="text-sm font-semibold text-[#B91C1C]">
+                Vincular refacciones
+              </div>
+              <div className="text-xs text-[#B91C1C]/70 mt-0.5">
+                {pendingPartsCount} solicitud{pendingPartsCount !== 1 ? "es" : ""} pendiente{pendingPartsCount !== 1 ? "s" : ""} de vinculación al catálogo
+              </div>
+            </div>
+            <span className="text-[#B91C1C] text-lg">→</span>
+          </button>
+        </Link>
       )}
 
       {ownPhotos.length > 0 && (

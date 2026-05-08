@@ -5,16 +5,11 @@ import { findById, readAll } from "@/lib/db";
 import { MobileHeader } from "@/components/shell/MobileHeader";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { Banner } from "@/components/ui/Banner";
-import { Card } from "@/components/ui/Card";
 import { StepHeader } from "@/components/wizard/StepHeader";
 import {
   partStatusLabel,
   partStatusVariant,
-  serviceStatusLabel,
-  serviceStatusVariant,
 } from "@/lib/order-helpers";
-import { ServiceStatusSwitcher } from "./ServiceStatusSwitcher";
 import { CloseServiceButton } from "./CloseServiceButton";
 
 export default async function ServiceWorkPage({
@@ -40,7 +35,8 @@ export default async function ServiceWorkPage({
   const hasUnresolvedParts = own.some(
     (p) => p.status === "requested" || p.status === "waiting_purchase",
   );
-  const canClose = closingPhotos.length > 0 && !hasUnresolvedParts && svc.status !== "done";
+  const locked = svc.status === "waiting_parts" || hasUnresolvedParts;
+  const canClose = closingPhotos.length > 0 && !locked && svc.status !== "done";
 
   return (
     <>
@@ -58,21 +54,15 @@ export default async function ServiceWorkPage({
       />
 
       <main className="flex-1 p-3 space-y-3 pb-20">
-        <Card>
-          <div className="flex justify-between items-center mb-3">
-            <div className="text-[11px] uppercase tracking-wider text-text-tertiary font-medium">
-              Estado del servicio
-            </div>
-            <Badge variant={serviceStatusVariant(svc.status)}>
-              {serviceStatusLabel(svc.status)}
-            </Badge>
+        {locked && (
+          <div className="flex items-start gap-2.5 bg-bg-warning border border-[#FDE68A] rounded-lg px-3 py-2.5 text-sm text-text-warning">
+            <span className="shrink-0 mt-0.5">🔒</span>
+            <span>
+              Servicio bloqueado — esperando que el aprobador resuelva las
+              refacciones. El estado se actualizará automáticamente.
+            </span>
           </div>
-          <ServiceStatusSwitcher
-            serviceId={svc.id}
-            current={svc.status}
-            disabled={svc.status === "done" || hasUnresolvedParts && svc.status !== "waiting_parts"}
-          />
-        </Card>
+        )}
 
         <Link
           href={`/orden/${id}/flujo/servicio/${svc.id}/refacciones`}
@@ -123,13 +113,6 @@ export default async function ServiceWorkPage({
             <span className="text-text-tertiary">›</span>
           </div>
         </Link>
-
-        {hasUnresolvedParts && (
-          <Banner tone="warning">
-            Hay refacciones esperando vinculación o compra. No podrás cerrar
-            hasta que el aprobador las resuelva.
-          </Banner>
-        )}
       </main>
 
       <div className="sticky bottom-0 p-3 bg-bg-primary border-t border-border-tertiary">
@@ -139,6 +122,11 @@ export default async function ServiceWorkPage({
               Volver al hub
             </Button>
           </Link>
+        ) : locked ? (
+          <div className="w-full flex items-center justify-center gap-2 rounded-lg bg-bg-secondary border border-border-secondary py-3 px-4 text-sm text-text-tertiary">
+            <span>🔒</span>
+            <span>No disponible — refacciones pendientes</span>
+          </div>
         ) : (
           <CloseServiceButton serviceId={svc.id} disabled={!canClose} />
         )}
