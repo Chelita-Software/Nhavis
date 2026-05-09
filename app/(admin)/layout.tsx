@@ -12,11 +12,11 @@ export default async function AdminLayout({
   if (user.role === "mecanico") redirect("/mis-ordenes");
 
   return (
-    <div className="min-h-screen p-4 lg:p-6">
-      <div className="max-w-[1100px] lg:max-w-[1400px] xl:max-w-[1600px] mx-auto">
-        <div className="flex bg-bg-primary border border-border-tertiary rounded-lg overflow-hidden min-h-[560px]">
+    <div className="h-screen flex flex-col p-4 lg:p-6 overflow-hidden">
+      <div className="max-w-[1100px] lg:max-w-[1400px] xl:max-w-[1600px] mx-auto w-full flex-1 flex flex-col min-h-0">
+        <div className="flex flex-1 min-h-0 bg-bg-primary border border-border-tertiary rounded-lg overflow-hidden">
           <Sidebar user={{ name: user.name, role: user.role }} />
-          <main className="flex-1 p-4 bg-bg-secondary overflow-auto">
+          <main className="flex-1 p-4 bg-bg-secondary overflow-y-auto">
             {children}
           </main>
         </div>

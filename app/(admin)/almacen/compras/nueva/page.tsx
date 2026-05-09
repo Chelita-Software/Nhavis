@@ -14,9 +14,7 @@ export default async function NewPOPage() {
         title="Nueva Orden de Compra"
         sub="Compra manual — sin orden de trabajo asociada (reabastecimiento, etc.)."
         actions={
-          <Link href="/almacen/compras">
-            <Button>← Cancelar</Button>
-          </Link>
+          <Button href="/almacen/compras">← Cancelar</Button>
         }
       />
       <NewPOForm items={items.filter((i) => i.active)} />

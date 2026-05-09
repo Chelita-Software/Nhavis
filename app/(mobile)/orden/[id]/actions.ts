@@ -25,10 +25,14 @@ interface UploadPhotoInput {
 
 export async function uploadPhotoAction(input: UploadPhotoInput) {
   const user = await requireUser();
-  const m = input.dataUrl.match(/^data:(image\/[a-z+]+);base64,(.+)$/);
-  if (!m) throw new Error("Formato de imagen inválido.");
-  const ext = m[1].split("/")[1].replace("+xml", "");
-  const buf = Buffer.from(m[2], "base64");
+  const commaIdx = input.dataUrl.indexOf(",");
+  if (commaIdx === -1) throw new Error("Formato de imagen inválido.");
+  const header = input.dataUrl.slice(0, commaIdx);
+  const b64 = input.dataUrl.slice(commaIdx + 1);
+  const headerMatch = header.match(/^data:(image\/[a-zA-Z+]+);base64$/);
+  if (!headerMatch) throw new Error("Formato de imagen inválido.");
+  const ext = headerMatch[1].split("/")[1].replace("+xml", "").toLowerCase();
+  const buf = Buffer.from(b64, "base64");
   await fs.mkdir(UPLOADS_DIR, { recursive: true });
   const filename = `${input.workOrderId}-${Date.now()}-${uuid().slice(0, 6)}.${ext}`;
   await fs.writeFile(path.join(UPLOADS_DIR, filename), buf);
@@ -111,6 +115,7 @@ export async function addPartAction(input: AddPartInput) {
     await patchById("workOrderServices", svc.id, { status: "waiting_parts" });
     revalidatePath(`/orden/${svc.workOrderId}/flujo/servicio/${svc.id}`);
     revalidatePath(`/orden/${svc.workOrderId}/flujo/servicio/${svc.id}/refacciones`);
+    revalidatePath(`/orden/${svc.workOrderId}/flujo/refacciones`);
     revalidatePath(`/orden/${svc.workOrderId}`);
   }
   return part;
@@ -127,7 +132,10 @@ export async function updatePartAction(
     throw new Error("Sólo se pueden editar refacciones aún no resueltas.");
   await patchById("workOrderParts", partId, patch);
   const svc = await findById("workOrderServices", part.workOrderServiceId);
-  if (svc) revalidatePath(`/orden/${svc.workOrderId}/flujo/servicio/${svc.id}/refacciones`);
+  if (svc) {
+    revalidatePath(`/orden/${svc.workOrderId}/flujo/servicio/${svc.id}/refacciones`);
+    revalidatePath(`/orden/${svc.workOrderId}/flujo/refacciones`);
+  }
 }
 
 export async function deletePartAction(partId: string) {
@@ -141,7 +149,10 @@ export async function deletePartAction(partId: string) {
     result: undefined,
   }));
   const svc = await findById("workOrderServices", part.workOrderServiceId);
-  if (svc) revalidatePath(`/orden/${svc.workOrderId}/flujo/servicio/${svc.id}/refacciones`);
+  if (svc) {
+    revalidatePath(`/orden/${svc.workOrderId}/flujo/servicio/${svc.id}/refacciones`);
+    revalidatePath(`/orden/${svc.workOrderId}/flujo/refacciones`);
+  }
 }
 
 export async function closeServiceAction(serviceId: string) {

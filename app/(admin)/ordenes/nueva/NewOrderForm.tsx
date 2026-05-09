@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useEffect, useTransition } from "react";
 import { Card, CardTitle } from "@/components/ui/Card";
 import { Input, Label, Select, Textarea } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
@@ -24,12 +24,13 @@ export function NewOrderForm({ units, assignees, catalog }: Props) {
   const [assigneeId, setAssigneeId] = useState(assignees[0]?.id ?? "");
   const [priority, setPriority] = useState<Priority>("normal");
   const [reason, setReason] = useState("");
-  const [scheduledFor, setScheduledFor] = useState(() => {
+  const [scheduledFor, setScheduledFor] = useState("");
+  useEffect(() => {
     const d = new Date();
     d.setHours(9, 0, 0, 0);
     d.setDate(d.getDate() + 1);
-    return d.toISOString().slice(0, 16);
-  });
+    setScheduledFor(d.toISOString().slice(0, 16));
+  }, []);
   const [selectedSvcs, setSelectedSvcs] = useState<Set<string>>(new Set());
   const [error, setError] = useState<string | null>(null);
   const [pending, start] = useTransition();

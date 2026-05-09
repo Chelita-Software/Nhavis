@@ -16,8 +16,15 @@ export default async function InicioPage({
   const user = await requireUser();
   const order = await findById("workOrders", id);
   if (!order) notFound();
-  const photos = (await readAll("workOrderPhotos")).filter(
+  const [allPhotos, allServices] = await Promise.all([
+    readAll("workOrderPhotos"),
+    readAll("workOrderServices"),
+  ]);
+  const photos = allPhotos.filter(
     (p) => p.workOrderId === id && p.stage === "initial",
+  );
+  const locked = allServices.some(
+    (s) => s.workOrderId === id && s.status !== "pending",
   );
 
   return (
@@ -35,24 +42,30 @@ export default async function InicioPage({
         subtitle="Sube al menos una foto del estado al recibir el camión."
       />
       <main className="flex-1 p-3">
+        {locked && (
+          <div className="flex items-center gap-2 text-[11px] text-text-secondary bg-bg-secondary border border-border-tertiary rounded-lg px-3 py-2 mb-3">
+            <span>🔒</span>
+            <span>Evidencia bloqueada — los servicios ya fueron iniciados.</span>
+          </div>
+        )}
         <PhotoUploader
           workOrderId={id}
           workOrderServiceId={null}
           stage="initial"
           photos={photos}
           emptyHint="Toma fotos de los lados, la cabina y cualquier daño visible."
+          readOnly={locked}
         />
       </main>
       <div className="p-3 bg-bg-primary border-t border-border-tertiary">
-        <Link href={`/orden/${id}/flujo/inspeccion`}>
-          <Button
-            variant="primary"
-            className="w-full justify-center text-sm py-3"
-            disabled={photos.length === 0}
-          >
-            Continuar a Inspección →
-          </Button>
-        </Link>
+        <Button
+          href={photos.length > 0 ? `/orden/${id}/flujo/inspeccion` : undefined}
+          variant="primary"
+          className="w-full justify-center text-sm py-3"
+          disabled={photos.length === 0}
+        >
+          Continuar a Inspección →
+        </Button>
       </div>
     </>
   );

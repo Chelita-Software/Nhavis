@@ -27,9 +27,7 @@ export default async function MovementsPage() {
         title="Movimientos de inventario"
         sub="Ingresos y egresos manuales + autorizados desde órdenes."
         actions={
-          <Link href="/almacen">
-            <Button>← Almacén</Button>
-          </Link>
+          <Button href="/almacen">← Almacén</Button>
         }
       />
 

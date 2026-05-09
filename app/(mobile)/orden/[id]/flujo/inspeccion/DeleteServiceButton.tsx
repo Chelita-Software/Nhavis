@@ -9,7 +9,8 @@ export function DeleteServiceButton({ serviceId }: { serviceId: string }) {
   return (
     <button
       type="button"
-      onClick={() => {
+      onClick={(e) => {
+        e.stopPropagation();
         if (!confirm("¿Eliminar este servicio?")) return;
         start(() => deleteServiceAction(serviceId));
       }}

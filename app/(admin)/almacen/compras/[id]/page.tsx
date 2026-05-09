@@ -48,9 +48,7 @@ export default async function PODetailPage({
         title={`OC ${po.folio}`}
         sub={po.supplier}
         actions={
-          <Link href="/almacen/compras">
-            <Button>← Lista</Button>
-          </Link>
+          <Button href="/almacen/compras">← Lista</Button>
         }
       />
 

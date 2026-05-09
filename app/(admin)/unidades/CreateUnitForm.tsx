@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useEffect, useTransition } from "react";
 import { Card, CardTitle } from "@/components/ui/Card";
 import { Input, Label } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
@@ -10,7 +10,8 @@ export function CreateUnitForm() {
   const [unitNumber, setUnitNumber] = useState("");
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
-  const [year, setYear] = useState(new Date().getFullYear().toString());
+  const [year, setYear] = useState("");
+  useEffect(() => { setYear(new Date().getFullYear().toString()); }, []);
   const [plates, setPlates] = useState("");
   const [pending, start] = useTransition();
   const [error, setError] = useState<string | null>(null);

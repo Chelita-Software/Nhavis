@@ -1,17 +1,12 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { requireUser } from "@/lib/auth";
 import { findById, readAll } from "@/lib/db";
 import { MobileHeader } from "@/components/shell/MobileHeader";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import { StepHeader } from "@/components/wizard/StepHeader";
-import {
-  serviceStatusLabel,
-  serviceStatusVariant,
-} from "@/lib/order-helpers";
 import { AddServiceForm } from "./AddServiceForm";
-import { DeleteServiceButton } from "./DeleteServiceButton";
+import { ServiceAccordion } from "./ServiceAccordion";
 
 export default async function InspeccionPage({
   params,
@@ -23,11 +18,18 @@ export default async function InspeccionPage({
   const order = await findById("workOrders", id);
   if (!order) notFound();
 
-  const [services, catalog] = await Promise.all([
+  const [services, catalog, photos, parts] = await Promise.all([
     readAll("workOrderServices"),
     readAll("serviceCatalog"),
+    readAll("workOrderPhotos"),
+    readAll("workOrderParts"),
   ]);
   const own = services.filter((s) => s.workOrderId === id);
+  const ownServiceIds = new Set(own.map((s) => s.id));
+  const initialPhotos = photos.filter(
+    (p) => p.workOrderId === id && p.stage === "initial",
+  );
+  if (initialPhotos.length === 0) redirect(`/orden/${id}`);
 
   return (
     <>
@@ -54,26 +56,11 @@ export default async function InspeccionPage({
             </div>
           ) : (
             own.map((s) => (
-              <div
+              <ServiceAccordion
                 key={s.id}
-                className="bg-bg-primary border border-border-tertiary rounded-lg p-3 mb-2 flex justify-between items-start"
-              >
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium">{s.name}</div>
-                  <div className="text-[11px] text-text-secondary capitalize">
-                    {s.category}
-                    {s.description && ` · ${s.description}`}
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <Badge variant={serviceStatusVariant(s.status)}>
-                    {serviceStatusLabel(s.status)}
-                  </Badge>
-                  {s.status === "pending" && (
-                    <DeleteServiceButton serviceId={s.id} />
-                  )}
-                </div>
-              </div>
+                service={s}
+                parts={parts.filter((p) => p.workOrderServiceId === s.id)}
+              />
             ))
           )}
         </div>
@@ -88,17 +75,17 @@ export default async function InspeccionPage({
               category: c.category,
             }))}
         />
+
       </main>
       <div className="p-3 bg-bg-primary border-t border-border-tertiary">
-        <Link href={`/orden/${id}`}>
-          <Button
-            variant="primary"
-            className="w-full justify-center text-sm py-3"
-            disabled={own.length === 0}
-          >
-            Volver al hub →
-          </Button>
-        </Link>
+        <Button
+          href={own.length > 0 ? `/orden/${id}` : undefined}
+          variant="primary"
+          className="w-full justify-center text-sm py-3"
+          disabled={own.length === 0}
+        >
+          Siguiente paso →
+        </Button>
       </div>
     </>
   );

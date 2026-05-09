@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/shell/PageHeader";
 import { Card, CardTitle } from "@/components/ui/Card";
 import { MetricCard, MetricsGrid } from "@/components/ui/Metric";
 import { formatMoney } from "@/lib/format";
+import { TruckSpendReport } from "./TruckSpendReport";
 
 export default async function ReportsPage() {
   await requireRole(["admin"]);
@@ -45,14 +46,7 @@ export default async function ReportsPage() {
           sub="stock × precio actual"
         />
       </MetricsGrid>
-      <Card>
-        <CardTitle>Próximamente</CardTitle>
-        <p className="text-[11px] text-text-secondary mt-2">
-          Reportes detallados por unidad, período, mecánico, exportación a
-          Excel/PDF. Estos son los datos crudos disponibles para construir esos
-          reportes.
-        </p>
-      </Card>
+      <TruckSpendReport />
     </>
   );
 }

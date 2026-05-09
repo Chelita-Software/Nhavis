@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { requireUser } from "@/lib/auth";
 import { findById, readAll } from "@/lib/db";
 import { MobileHeader } from "@/components/shell/MobileHeader";
@@ -27,6 +27,10 @@ export default async function ServiceWorkPage({
     readAll("workOrderParts"),
     readAll("workOrderPhotos"),
   ]);
+  const initialPhotos = photos.filter(
+    (p) => p.workOrderId === id && p.stage === "initial",
+  );
+  if (initialPhotos.length === 0) redirect(`/orden/${id}`);
   const own = parts.filter((p) => p.workOrderServiceId === svcId);
   const closingPhotos = photos.filter(
     (p) => p.workOrderServiceId === svcId && p.stage === "service_done",
@@ -117,11 +121,9 @@ export default async function ServiceWorkPage({
 
       <div className="sticky bottom-0 p-3 bg-bg-primary border-t border-border-tertiary">
         {svc.status === "done" ? (
-          <Link href={`/orden/${id}`}>
-            <Button className="w-full justify-center text-sm py-3" variant="primary">
-              Volver al hub
-            </Button>
-          </Link>
+          <Button href={`/orden/${id}`} className="w-full justify-center text-sm py-3" variant="primary">
+            Volver al hub
+          </Button>
         ) : locked ? (
           <div className="w-full flex items-center justify-center gap-2 rounded-lg bg-bg-secondary border border-border-secondary py-3 px-4 text-sm text-text-tertiary">
             <span>🔒</span>

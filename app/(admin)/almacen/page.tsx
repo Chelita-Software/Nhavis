@@ -25,12 +25,8 @@ export default async function WarehousePage() {
         sub={`${items.length} ítems registrados`}
         actions={
           <>
-            <Link href="/almacen/movimientos">
-              <Button>Movimientos</Button>
-            </Link>
-            <Link href="/almacen/compras">
-              <Button variant="primary">Compras</Button>
-            </Link>
+            <Button href="/almacen/movimientos">Movimientos</Button>
+            <Button href="/almacen/compras" variant="primary">Compras</Button>
           </>
         }
       />

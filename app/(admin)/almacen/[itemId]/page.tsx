@@ -59,9 +59,7 @@ export default async function ItemDetailPage({
         title={item.description}
         sub={`SKU ${item.sku} · ${item.unitOfMeasure}`}
         actions={
-          <Link href="/almacen">
-            <Button>← Almacén</Button>
-          </Link>
+          <Button href="/almacen">← Almacén</Button>
         }
       />
 

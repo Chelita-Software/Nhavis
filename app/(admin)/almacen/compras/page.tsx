@@ -33,9 +33,7 @@ export default async function PurchasesPage() {
         title="Órdenes de compra"
         sub={`${pos.length} OCs (${pos.filter((p) => p.status === "ordered").length} pendientes de recibir)`}
         actions={
-          <Link href="/almacen/compras/nueva">
-            <Button variant="primary">＋ Nueva OC manual</Button>
-          </Link>
+          <Button href="/almacen/compras/nueva" variant="primary">＋ Nueva OC manual</Button>
         }
       />
 

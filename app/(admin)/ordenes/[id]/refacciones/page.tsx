@@ -42,9 +42,7 @@ export default async function OrderRefactionsPage({
         title={`Refacciones · ${order.folio}`}
         sub={`${pending.length} pendientes · ${resolved.length} resueltas`}
         actions={
-          <Link href={`/ordenes/${id}`}>
-            <Button>← Volver a la orden</Button>
-          </Link>
+          <Button href={`/ordenes/${id}`}>← Volver a la orden</Button>
         }
       />
 

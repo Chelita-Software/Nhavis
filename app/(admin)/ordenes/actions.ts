@@ -1,5 +1,7 @@
 "use server";
 
+import { promises as fs } from "node:fs";
+import path from "node:path";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireRole } from "@/lib/auth";
@@ -267,6 +269,55 @@ export async function setServiceStatusAction(
   await patchById("workOrderServices", serviceId, patch);
   revalidatePath(`/ordenes/${svc.workOrderId}`);
   revalidatePath(`/orden/${svc.workOrderId}`);
+}
+
+export async function deleteOrderAction(orderId: string) {
+  await requireRole(["admin"]);
+  const order = await findById("workOrders", orderId);
+  if (!order) throw new Error("Orden no encontrada.");
+
+  const [allServices, allParts, allPhotos] = await Promise.all([
+    readAll("workOrderServices"),
+    readAll("workOrderParts"),
+    readAll("workOrderPhotos"),
+  ]);
+
+  const svcIds = new Set(
+    allServices.filter((s) => s.workOrderId === orderId).map((s) => s.id),
+  );
+  const photos = allPhotos.filter((p) => p.workOrderId === orderId);
+
+  await Promise.all([
+    transact("workOrders", async (recs) => ({
+      records: recs.filter((r) => r.id !== orderId),
+      result: undefined,
+    })),
+    transact("workOrderServices", async (recs) => ({
+      records: recs.filter((r) => !svcIds.has(r.id)),
+      result: undefined,
+    })),
+    transact("workOrderParts", async (recs) => ({
+      records: recs.filter((r) => !svcIds.has(r.workOrderServiceId)),
+      result: undefined,
+    })),
+    transact("workOrderPhotos", async (recs) => ({
+      records: recs.filter((r) => r.workOrderId !== orderId),
+      result: undefined,
+    })),
+  ]);
+
+  // Best-effort file cleanup
+  await Promise.allSettled(
+    photos
+      .filter((p) => p.photoUrl.startsWith("/uploads/"))
+      .map((p) =>
+        fs.unlink(path.join(process.cwd(), "public", p.photoUrl)),
+      ),
+  );
+
+  revalidatePath("/ordenes");
+  revalidatePath("/dashboard");
+  redirect("/ordenes");
 }
 
 export async function deleteServiceAction(serviceId: string) {

@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useTransition } from "react";
 import { Button } from "@/components/ui/Button";
 import {
+  deleteOrderAction,
   signAdminAction,
   signSupervisorAction,
   submitOrderAction,
@@ -16,6 +16,7 @@ interface Props {
   canSupervisorSign: boolean;
   canAdminSign: boolean;
   canSubmit: boolean;
+  canDelete: boolean;
 }
 
 export function OrderActions({
@@ -24,13 +25,12 @@ export function OrderActions({
   canSupervisorSign,
   canAdminSign,
   canSubmit,
+  canDelete,
 }: Props) {
   const [pending, start] = useTransition();
   return (
     <div className="flex flex-wrap gap-2 justify-end">
-      <Link href={`/ordenes/${orderId}/refacciones`}>
-        <Button>Vincular refacciones</Button>
-      </Link>
+      <Button href={`/ordenes/${orderId}/refacciones`}>Vincular refacciones</Button>
       {canSubmit && (
         <Button
           variant="primary"
@@ -62,6 +62,18 @@ export function OrderActions({
         <span className="text-[11px] text-text-success self-center">
           Orden cerrada
         </span>
+      )}
+      {canDelete && (
+        <Button
+          variant="danger"
+          disabled={pending}
+          onClick={() => {
+            if (!confirm("¿Eliminar esta orden y todos sus datos? Esta acción no se puede deshacer.")) return;
+            start(() => deleteOrderAction(orderId));
+          }}
+        >
+          Eliminar orden
+        </Button>
       )}
     </div>
   );

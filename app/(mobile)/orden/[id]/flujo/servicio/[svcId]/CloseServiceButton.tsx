@@ -38,7 +38,7 @@ export function CloseServiceButton({
       </Button>
       {disabled && (
         <div className="text-[10px] text-text-tertiary text-center mt-2">
-          Sube al menos 1 foto y resuelve todas las refacciones para cerrar.
+          Sube al menos 1 foto.
         </div>
       )}
     </>

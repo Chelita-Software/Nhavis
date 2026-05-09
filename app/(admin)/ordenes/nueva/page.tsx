@@ -23,9 +23,7 @@ export default async function NewOrderPage() {
         title="Nueva Orden de Reparación"
         sub="La orden nace agendada — la unidad llegará al taller después."
         actions={
-          <Link href="/ordenes">
-            <Button>← Cancelar</Button>
-          </Link>
+          <Button href="/ordenes">← Cancelar</Button>
         }
       />
       <NewOrderForm

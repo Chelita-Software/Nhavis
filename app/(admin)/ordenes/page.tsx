@@ -72,9 +72,7 @@ export default async function OrdersListPage({ searchParams }: PageProps) {
         title="Órdenes de Reparación"
         sub={`${orders.length} órdenes en total`}
         actions={
-          <Link href="/ordenes/nueva">
-            <Button variant="primary">＋ Nueva Orden</Button>
-          </Link>
+          <Button href="/ordenes/nueva" variant="primary">＋ Nueva Orden</Button>
         }
       />
 

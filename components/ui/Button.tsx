@@ -1,4 +1,5 @@
 import * as React from "react";
+import Link from "next/link";
 import { cn } from "@/lib/cn";
 
 type Variant = "primary" | "secondary" | "success" | "danger" | "ghost";
@@ -7,6 +8,7 @@ type Size = "sm" | "md";
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   size?: Size;
+  href?: string;
 }
 
 const variantClass: Record<Variant, string> = {
@@ -26,12 +28,21 @@ export function Button({
   variant = "secondary",
   size = "md",
   className,
+  href,
+  children,
   ...props
 }: ButtonProps) {
+  const classes = cn("btn-base", variantClass[variant], sizeClass[size], className);
+  if (href) {
+    return (
+      <Link href={href} className={classes}>
+        {children}
+      </Link>
+    );
+  }
   return (
-    <button
-      className={cn("btn-base", variantClass[variant], sizeClass[size], className)}
-      {...props}
-    />
+    <button className={classes} {...props}>
+      {children}
+    </button>
   );
 }

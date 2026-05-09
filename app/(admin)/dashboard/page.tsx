@@ -70,9 +70,7 @@ export default async function DashboardPage() {
           year: "numeric",
         })}
         actions={
-          <Link href="/ordenes/nueva">
-            <Button variant="primary">＋ Nueva orden</Button>
-          </Link>
+          <Button href="/ordenes/nueva" variant="primary">＋ Nueva orden</Button>
         }
       />
 
@@ -109,6 +107,7 @@ export default async function DashboardPage() {
             label="Gasto del mes"
             value={formatMoney(monthSpend)}
             sub="Refacciones autorizadas + en compra"
+            href="/reportes"
           />
         ) : (
           <MetricCard
